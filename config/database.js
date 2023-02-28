@@ -8,10 +8,10 @@ export const pool = createPool({
   user: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_DB,
-  port: process.env.DATABASE_PORT,
-  ssl: {
-    rejectUnauthorized: true
-  }
+  port: process.env.DATABASE_PORT
+  // ssl: {
+  //   rejectUnauthorized: true
+  // }
 })
 
 export const connectionDb = async () => {
