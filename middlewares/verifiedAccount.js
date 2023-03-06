@@ -7,16 +7,22 @@ export const verifiedAccount = async (req = request, res = response, next) => {
   const { username } = req.body
   try {
     const user = await User.findUsername(username)
+    if (!user) {
+      return res.status(401).json({
+        ok: false,
+        msg: 'username or password incorrect'
+      })
+    }
     if (user.verify === 0) {
       sendEmail(user)
+      req.user = user
       return res.status(401).json({
         ok: false,
         msg: 'account is not verify, we have send an email to verify'
       })
     }
-    req.user = user
   } catch (error) {
-    handleErrorResponse(res)
+    return handleErrorResponse(res)
   }
   next()
 }
