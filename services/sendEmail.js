@@ -1,16 +1,20 @@
 import { transport } from '../config/nodemailer.js'
 
-export const sendEmail = async (to) => {
+export const sendEmail = async (user) => {
   try {
-    const message = await transport.sendMail({
+    const messageInfo = await transport.sendMail({
       from: process.env.NODEMAILER_USER,
-      to,
+      to: user.email,
       subject: 'Verifica tu cuenta',
       html: `
-        <p>Verifica tu cuenta</p>
+        <div>
+          <h2>¡Hola ${user.username}!</h2>
+          <p>Verifica tu cuenta en el siguiente enlace <a href='http://localhost:3000/api/user/verify-account?token=${user.token}'>Verificar cuenta</a></p>
+          <p>Si no lo hiciste ignora este mensaje.</p>
+        </div>
       `
     })
-    console.log(message.messageId)
+    return messageInfo
   } catch (error) {
     throw new Error('Error to send email')
   }
