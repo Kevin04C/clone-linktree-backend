@@ -15,12 +15,12 @@ export const verifiedAccount = async (req = request, res = response, next) => {
     }
     if (user.verify === 0) {
       sendEmail(user)
-      req.user = user
       return res.status(401).json({
         ok: false,
         msg: 'account is not verify, we have send an email to verify'
       })
     }
+    req.user = user
   } catch (error) {
     return handleErrorResponse(res)
   }
