@@ -43,6 +43,24 @@ export class User {
     }
   }
 
+  static async find({ column, value }) {
+    const sql = `
+      SELECT users.id, users.username, users.email, users.password, photo_users.id_photo_user, 
+      photo_users.photo_url, security_users.verify, security_users.forgot_password, security_users.token
+      FROM users
+      INNER JOIN photo_users ON users.id = photo_users.users_id
+      INNER JOIN security_users on users.id  = security_users.id
+      WHERE ? = ?
+    `
+    try {
+      const data = [column, value]
+      const [rows] = await pool.query(sql, data)
+      return rows.at(0) ?? null
+    } catch (error) {
+      handleErrorModels('Error find user')
+    }
+  }
+
   async save() {
     const sql = 'INSERT INTO users (username, email, password) VALUES (?,?,?)'
     try {
