@@ -8,7 +8,7 @@ export const handleErrorResponse = (
   res.status(code)
   res.json({
     ok: false,
-    message: msg
+    msg
   })
 }
 
