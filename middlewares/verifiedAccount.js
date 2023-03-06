@@ -16,7 +16,7 @@ export const verifiedAccount = async (req = request, res = response, next) => {
     }
     req.user = user
   } catch (error) {
-    handleErrorResponse()
+    handleErrorResponse(res)
   }
   next()
 }

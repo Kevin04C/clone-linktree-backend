@@ -35,7 +35,7 @@ export const registerUser = async (req = request, res = response) => {
       message: 'We have sent an email for verify your account'
     })
   } catch (error) {
-    handleErrorResponse()
+    handleErrorResponse(res)
   }
 }
 export const loginUser = async (req = request, res = response) => {
@@ -69,7 +69,7 @@ export const loginUser = async (req = request, res = response) => {
       token
     })
   } catch (error) {
-    handleErrorResponse()
+    handleErrorResponse(res)
   }
 }
 
@@ -94,7 +94,7 @@ export const verifyUser = async (req = request, res = response) => {
       ok: true
     })
   } catch (error) {
-    handleErrorResponse()
+    handleErrorResponse(res)
   }
 }
 
@@ -124,7 +124,7 @@ export const authWithGoogle = async (req = request, res = response) => {
       token
     })
   } catch (error) {
-    handleErrorResponse()
+    handleErrorResponse(res)
   }
 }
 
@@ -138,6 +138,6 @@ export const renew = (req = request, res = response) => {
       token
     })
   } catch (error) {
-    handleErrorResponse()
+    handleErrorResponse(res)
   }
 }

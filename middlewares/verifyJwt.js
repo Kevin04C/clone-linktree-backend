@@ -21,7 +21,7 @@ export const verifyJwt = (req = request, res = response, next) => {
     }
     req.user = userPayload
   } catch (error) {
-    handleErrorResponse()
+    handleErrorResponse(res)
   }
   next()
 }
