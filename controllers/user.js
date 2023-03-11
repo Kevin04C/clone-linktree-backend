@@ -59,7 +59,9 @@ export const loginUser = async (req = request, res = response) => {
     const payload = {
       id: user.id,
       username: user.username,
-      photo_url: user.photo_url
+      photo_url: user.photo_url,
+      bio: user.bio,
+      profile_title: user.profile_title
     }
     const token = generateJwt(payload)
 
@@ -114,7 +116,9 @@ export const authWithGoogle = async (req = request, res = response) => {
     const payload = {
       id: user.id,
       username: user.username,
-      photo_url: user.photo_url
+      photo_url: user.photo_url,
+      bio: user.bio,
+      profile_title: user.profile_title
     }
     const token = generateJwt(payload)
 

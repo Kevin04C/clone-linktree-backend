@@ -17,7 +17,9 @@ export const verifyJwt = (req = request, res = response, next) => {
     const userPayload = {
       id: payload.id,
       username: payload.username,
-      photo_url: payload.photo_url
+      photo_url: payload.photo_url,
+      bio: payload.bio,
+      profile_title: payload.profile_title
     }
     req.user = userPayload
   } catch (error) {

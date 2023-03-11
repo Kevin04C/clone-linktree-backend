@@ -9,12 +9,14 @@ export class User {
   }
 
   static async findByEmail(email) {
-    const sql = `
-      SELECT users.id, users.username, users.email, users.password, photo_users.id_photo_user, 
-      photo_users.photo_url, security_users.verify, security_users.forgot_password, security_users.token
+    const sql = `SELECT users.id, username, email, password, photo_users.id_photo_user, 
+      photo_users.photo_url, security_users.verify, 
+      security_users.forgot_password, security_users.token,
+      profile.bio, profile.profile_title
       FROM users
       INNER JOIN photo_users ON users.id = photo_users.users_id
-      INNER JOIN security_users on users.id  = security_users.id
+      INNER JOIN security_users on users.id  = security_users.users_id
+      INNER JOIN profile ON users.id = profile.users_id
       WHERE email = ?
     `
     try {
@@ -27,14 +29,16 @@ export class User {
   }
 
   static async findUsername(username) {
-    const sql = `
-      SELECT users.id, users.username, users.email, users.password, photo_users.id_photo_user, 
-      photo_users.photo_url, security_users.verify, security_users.forgot_password, security_users.token
-      FROM users
-      INNER JOIN photo_users ON users.id = photo_users.users_id
-      INNER JOIN security_users on users.id  = security_users.id
-      WHERE username = ?
-    `
+    const sql = `SELECT users.id, username, email, password, photo_users.id_photo_user, 
+    photo_users.photo_url, security_users.verify, 
+    security_users.forgot_password, security_users.token,
+    profile.bio, profile.profile_title
+    FROM users
+    INNER JOIN photo_users ON users.id = photo_users.users_id
+    INNER JOIN security_users on users.id  = security_users.users_id
+    INNER JOIN profile ON users.id = profile.users_id
+    WHERE username = ?
+  `
     try {
       const [rows] = await pool.query(sql, username)
       return rows.at(0) ?? null
