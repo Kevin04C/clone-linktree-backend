@@ -8,15 +8,9 @@ export const verifyUserGoogle = async (credential) => {
       idToken: credential,
       audience: process.env.GOOGLE_CLIENT_ID
     })
-    const {
-      given_name: givenName,
-      family_name: familyName,
-      email,
-      picture
-    } = ticket.getPayload()
-    const username = givenName + familyName
+    const { given_name: givenName, email, picture } = ticket.getPayload()
     const user = {
-      username,
+      username: givenName,
       email,
       picture
     }
