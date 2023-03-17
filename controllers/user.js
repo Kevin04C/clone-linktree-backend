@@ -18,6 +18,7 @@ export const registerUser = async (req = request, res = response) => {
         message: 'already exists account with that email'
       })
     }
+
     if (userFind?.username === username) {
       return res.status(401).json({
         ok: false,
@@ -126,6 +127,42 @@ export const authWithGoogle = async (req = request, res = response) => {
       ok: true,
       user: payload,
       token
+    })
+  } catch (error) {
+    handleErrorResponse(res)
+  }
+}
+
+export const verifyUsername = async (req = request, res = response) => {
+  const { username } = req.body
+  try {
+    const user = await User.findUsername(username)
+    if (user) {
+      return res.status(401).json({
+        ok: false,
+        msg: 'there is already exists user with that username'
+      })
+    }
+    res.json({
+      ok: true
+    })
+  } catch (error) {
+    handleErrorResponse(res)
+  }
+}
+
+export const veirifyEmail = async (req = request, res = response) => {
+  const { email } = req.body
+  try {
+    const user = await User.findByEmail(email)
+    if (user) {
+      return res.status(401).json({
+        ok: false,
+        msg: 'there is already exists user with that email'
+      })
+    }
+    res.json({
+      ok: true
     })
   } catch (error) {
     handleErrorResponse(res)

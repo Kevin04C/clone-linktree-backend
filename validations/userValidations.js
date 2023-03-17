@@ -23,3 +23,12 @@ export const validationVerifyAccount = [
   query('token').not().isEmpty(),
   fieldValidations
 ]
+
+export const validationVerifyUsername = [
+  body('username').not().isEmpty(),
+  fieldValidations
+]
+export const validationVerifyEmail = [
+  body('email').not().isEmpty().isEmail().normalizeEmail(),
+  fieldValidations
+]
