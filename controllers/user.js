@@ -79,8 +79,7 @@ export const loginUser = async (req = request, res = response) => {
 export const verifyUser = async (req = request, res = response) => {
   const { token } = req.query
   try {
-    const user = await User.find({ column: token, value: token })
-
+    const user = await User.find({ column: 'token', value: token })
     if (user?.token !== token) {
       return res.status(401).json({
         ok: false,

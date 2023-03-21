@@ -54,10 +54,10 @@ export class User {
       FROM users
       INNER JOIN photo_users ON users.id = photo_users.users_id
       INNER JOIN security_users on users.id  = security_users.id
-      WHERE ? = ?
+      WHERE ${column} = ?
     `
     try {
-      const data = [column, value]
+      const data = [value]
       const [rows] = await pool.query(sql, data)
       return rows.at(0) ?? null
     } catch (error) {
