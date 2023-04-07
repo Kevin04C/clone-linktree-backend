@@ -53,7 +53,7 @@ export class User {
       photo_users.photo_url, security_users.verify, security_users.forgot_password, security_users.token
       FROM users
       INNER JOIN photo_users ON users.id = photo_users.users_id
-      INNER JOIN security_users on users.id  = security_users.id
+      INNER JOIN security_users on users.id  = security_users.users_id
       WHERE ${column} = ?
     `
     try {
